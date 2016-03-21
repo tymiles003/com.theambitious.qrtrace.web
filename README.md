@@ -3,7 +3,7 @@ QR Code Creation and Tracking Service
 
 Summary
 --------
-This project is a web application built on Django and MySQL. If you are familiar with Django and setting up a MySQL database, the install should be straight forward.
+This project is a web application developed in 2010 using Django and MySQL. In 2016 the codebase was cleaned up and updated to Django v1.9. If you are familiar with Django and setting up a MySQL database, the install should be straight forward.
 Feel free to fork the codebase and use for personal or commercial use. See MIT License for more information.
 
 Demo

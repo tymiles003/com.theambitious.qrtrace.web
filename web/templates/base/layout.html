@@ -12,13 +12,14 @@
   #content li { font-size:14px; padding:6px;}
   
   </style>
-  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />	  
+
+{% load staticfiles %}
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
   {% block css-includes %}{% endblock css-includes %}
 
 </head>
 <body >
 {% load general_extras %}
-
 <div class="container" >
 	
 	{% block header %}{% include 'include/header.html' %}{% endblock header %}
@@ -41,7 +42,7 @@
 			            </div>
 			            {% endif %}	    				
 			    		<a class="brand" href="/">
-					    	<img src="/images/icon_qrcode.png" width="55" height="55" title="Don't try to scan this. It doesn't scan!"  style="position:absolute; margin-left:-20px; margin-top:-8px;"/>
+					    	<img src="/static/images/icon_qrcode.png" width="55" height="55" title="Don't try to scan this. It doesn't scan!"  style="position:absolute; margin-left:-20px; margin-top:-8px;"/>
 					    	<div style="color:#fff; font-family:arial; font-size:24px; margin-left:45px; margin-top:-4px;">
 					    		 QR<span style="font-size:14px;">
 					    		<strong>TRACE</strong></span>
@@ -90,7 +91,7 @@
     			<p>
     				Mini-Sites allow you to create professional mini-sites for mobile phones and tablets.
     				Mini-Sites are highly customizable. Here is an example of a mini-site landing page.
-    				<img src="/images/premium_example.png" />
+    				<img src="/static/images/premium_example.png" />
     			</p>
     		</div>
     	</div>
@@ -100,8 +101,8 @@
     	{% if mp.id %}<a href="{% url 'web.registration.views.premium' %}" class="btn btn-primary">Create a Mini-Site</a>{% endif %}
     </div>
 </div>
-<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>    
-<script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
 
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>

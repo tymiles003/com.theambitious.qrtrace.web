@@ -8,7 +8,7 @@ import qrcode, numpy as np
 from django.conf import settings as settings
 from web.member.forms import LoginForm
 from web.campaign.models import Campaign
-
+from django.contrib.sites.models import Site
 
 def home(request):
     auth_user = None
@@ -46,7 +46,7 @@ def qr(request):
         campaign_id = int(request.GET['campaign_id'])
         try:
             c = Campaign.objects.get(user=request.user, id=campaign_id)
-            data = settings.STATIC_URL + reverse('web.track.views.track') + '?c=' + str(c.id)
+            data = 'http://%s%s' % (Site.objects.get_current().domain, reverse('web.track.views.track') + '?c=' + str(c.id))
         except:    
             return redirect(reverse('web.general.views.home'))
         

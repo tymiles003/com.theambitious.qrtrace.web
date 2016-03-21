@@ -51,7 +51,7 @@ def standard(request):
                 if auth_user is not None:
                     if auth_user.is_active:
                         user_login(request, auth_user)
-                        c = Campaign(user=auth_user, name=form.cleaned_data['name'], status='A')
+                        c = Campaign(user=auth_user, name=form.cleaned_data['name'], data=form.cleaned_data['data'], status='A')
                         c.save()    
                         messages.success(request, 'Your campaign has been created!')
                         return redirect(reverse('web.member.views.dash'))

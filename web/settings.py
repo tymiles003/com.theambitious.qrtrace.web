@@ -1,1 +1,0 @@
-conf/settings.example.py

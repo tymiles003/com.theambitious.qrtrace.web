@@ -1,21 +1,34 @@
-MIT License
-============
-Copyright (c) 2016 The Ambitious, Inc.
+QR Code Creation and Tracking Service
+=====================================
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Summary
+--------
+This project is a web application built on Django and MySQL. If you are familiar with Django and setting up a MySQL database, the install should be straight forward.
+Feel free to fork the codebase and use for personal or commercial use. See MIT License for more information.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Demo
+-----
+A working demo can be viewed at http://qrtrace.com
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Getting Started
+----------------
+Section 1 - Installation
+- install mysql-server, virtualenv
+- in terminal at project's root, execute `virtualenv env`
+- in terminal at project's root, execute `source env/bin/activate`
+- in project's root, execute `pip install -r pip-requirements.txt`
+
+Section 2 - Configuration
+- copy web/conf/settings.example.py web/settings.py
+- create mysql database
+- add mysql credentials at appropriate section in web/settings.py
+- add SECRET_KEY at appropriate line in web/settings.py
+- in project's root, execute `python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser`
+
+Section 3 - Starting Server
+- to start server, in project's root, execute `python manage.py runserver`
+- to access website, visit http://localhost:8000 in your browser
+
+Section 4 - Post Configuration
+- visit http://localhost:8000/admin and login with your superuser email and password
+- click on Sites and change the example.com record display name and domain name to 'localhost'

@@ -1,0 +1,75 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+
+<div class="row">
+	<div class="span6">
+		<h2>Standard Campaign</h2>
+		<div style="margin-top:20px;">
+			<form class="form-horizontal" method="POST">
+			{% csrf_token %}
+			    <fieldset>
+				    <div class="control-group {% if form.name.errors %}error{% endif %}">
+				    	<label class="control-label" for="input01">QR Campaign Name</label>
+				    	<div class="controls">
+				    		<input type="text" name="name" class="span4"  value="{{ form.name.value }}" />
+				    		{% if not form.name.errors %}
+				    		{% else %}
+				    			{{ form.name.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				    <div class="control-group {% if form.data.errors %}error{% endif %}">
+				    	<label class="control-label" for="input02">Text or URL</label>
+				    	<div class="controls">
+				    		<textarea name="data" id="data" class="span4" rows="7">{% if form.data.value %}{{ form.data.value }}{% else %}{{request.session.register.standard.data}}{% endif %}</textarea>
+				    		{% if not form.data.errors %}
+				    		<p class="help-block">{% if not c.id %}Destination URL or text of QR code scan.{% else %}Your QR code does not change when making edits to your campaign. Make sure to scan your existing QR code to ensure it is still working properly.{% endif %}</p>
+				    		{% else %}
+				    			{{ form.data.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				  
+				    <div class="control-group">
+				    	<label class="control-label" for="input05"></label>
+						<div class="controls">
+							<button class="btn btn-large btn-primary">Save</button>
+						</div>
+					</div>
+			    </fieldset>
+			</form>
+		</div>
+	</div>
+	{% if not c.id %}
+	<div class="span1" style="border-right:1px solid #f9f9f9; min-height:600px;">
+	</div>
+	
+	{% if not mp %}
+	<div class="span4">
+		<h2>Looking to create a Mini-Site?</h2>
+		<p style="margin-top:20px;">
+			In addition to our QR code creation and tracking service, we also offer a Mini-Site service. 
+			This premium service allows you to create custom, mobile-friendly landing pages for QR codes.
+		</p>
+		<img src="/images/premium_example.png" />
+		<div style="margin-top:20px;">	
+			<a href="{% url 'web.registration.views.premium' %}" class="btn btn-large" >Create a Mini-Site</a>
+		</div>
+	</div>	
+	{% else %}
+	<div class="span4">
+		<h2>Looking for a Mini-Site?</h2>
+		<p style="margin-top:20px;">
+			
+		</p>
+		<a href="{% url 'web.registration.views.premium' %}" class="btn btn-large" >Create a Mini-Site</a>
+	</div>	
+	{% endif %}
+	{% endif %}
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,0 +1,9 @@
+{% if request.user.is_authenticated %}
+<div>
+	<ul class="nav">
+		<li {% if current == 'dash' %}class="active"{% endif %}><a href="{% url 'web.member.views.dash' %}">Dashboard</a></li>
+		<li {% if current == 'campaign' %}class="active"{% endif %}><a href="{% url 'web.member.views.campaign' %}">My Campaigns</a></li>
+		<li {% if current == 'account' %}class="active"{% endif %}><a href="{% url 'web.member.views.account' %}">My Account</a></li>
+	</ul>
+</div>
+{% endif %}

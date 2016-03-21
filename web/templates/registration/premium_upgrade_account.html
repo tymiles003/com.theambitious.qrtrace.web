@@ -1,0 +1,35 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+<form method="POST">
+<div class="row">
+	<div class="span11">
+		<h2>Uprade Account</h2>
+		
+		<form method="POST">
+			{% csrf_token %}
+
+										
+			<div class="control-group {% if form.TW.errors %}error{% endif %}" id="TW_display" {% if not tw %}style="display:none;"{% endif %}>
+		    	<label class="control-label" for="input03"><strong>Twitter Username</strong></label>
+		    	<div class="controls">
+		    		<input type="text" name="TW" id="TW" class="span3"  value="{{ form.TW.value }}" /> 
+		    		<div id="TW_check_div" style="display:none;"><a href="#" id="TW_check" target="_blank">Check Twitter (new tab)</a></div>
+				    {% if form.TW.errors %}
+		    			{{ form.TW.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>	
+
+
+			<button class="btn btn-large btn-info" id="next" >Next Step</button>
+		</form>
+	</div>
+</div>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

@@ -1,0 +1,87 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block menu %}
+	{% include 'include/menu.html' with current='account' %}
+{% endblock menu %}
+{% block content %}
+<div class="row">
+	<div class="span5" >
+		<h2>My Account</h2>
+		<p>
+			{% if not mp.id %}
+			You are currently using our standard service. 
+			{% else %}
+			You are currently using our Mini-Site service. It expires on <strong style="color:green;">{{ mp.end_at|date:"M d, Y" }}</strong>
+			{% endif %}
+		</p>
+		<div style="margin-top:20px;">
+		<h3>Change Password</h3>
+		<form method="post" class="form-stacked" >
+			{% csrf_token %}
+			<div class="clearfix">
+				<p>
+					Type in a new password to change your existing one.
+				</p>
+			    <div class="control-group {% if cp_form.password.errors %}error{% endif %}">
+			    	<label class="control-label" for="input01">Password</label>
+			    	<div class="controls">
+			    		<input type="password" name="password" id="input01" class="span4"   />
+			    		{% if not cp_form.password.errors %}
+			    		{% else %}
+			    			{{ cp_form.password.errors|field_errors:"newline" }}
+			    		{% endif %}
+			    	</div>
+				</div>
+				<div>
+					<button class="btn" id="changepassword_submit">Change Password</button>	
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+	<div class="span1" style="border-right:1px solid #f9f9f9; min-height:300px;">
+	</div>
+	<div class="span5">
+	
+	{% if not mp.id and mp_old == 0 %}
+		
+		<h2>Create a Mini-Site</h2>
+		<div>
+			<p>
+				In addition to our QR code creation and tracking service, we also offer a Mini-Site service. 
+				This service allow you to create professional mini-sites for mobile phones and tablets.
+			</p>
+			<img src="/images/premium_example.png" />		
+			
+		</div>
+
+		<div style="margin-top:20px; border:1px solid #eee; background-color:#f9f9f9;text-align:center;">
+			<p style="text-align:center; color: #444; font-size:24px; margin-top:10px;">
+				Free 30 day trial
+			</p>
+			<p>No credit card information required for trial
+			</p>
+			<form action="{% url 'web.registration.views.premium' %}">
+				<button class="btn btn-primary btn-large btn-info">Create a Mini-Site</button>
+			</form>	
+		</div>	
+	{% endif %}
+	{% if mp.id or mp_old > 0 %}
+		<div style="text-align:center">
+			<h2 style="margin-bottom:30px;">Renew Mini-Site Subscription</h2>
+			<h3 style="margin-bottom:30px;">$40 / year</h3>
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+			</form>
+
+		</div>
+				
+	{% endif %}
+	</div>
+</div>
+
+{% endblock content %}

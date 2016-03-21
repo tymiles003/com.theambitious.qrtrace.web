@@ -1,0 +1,250 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+<form>
+<div class="row">
+	<div class="span11">
+		<h2>Mini-Site</h2>
+		<p>Start customizing your template with the navigation links below. Then fill out the form.
+		<div class="row">
+			<div class="span11">
+				<ul class="nav nav-pills">
+				    <li class="dropdown" id="menu1">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+					    	Header Theme
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu" id="preview_header_theme">
+						    <li><a href="#" class="preview_header_theme" val="a">Black</a></li>
+						    <li><a href="#" class="preview_header_theme" val="b">Blue</a></li>
+						    <li><a href="#" class="preview_header_theme" val="c">Dark Gray</a></li>
+						    <li><a href="#" class="preview_header_theme" val="d">Light Gray</a></li>
+							<li><a href="#" class="preview_header_theme" val="e">Yellow</a></li>
+						</ul>
+					</li>
+				    <li class="dropdown" id="menu2">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2">
+					    	Page Theme
+					    	<b class="caret"></b>
+					    </a>
+					   	<ul class="dropdown-menu" id="preview_theme">
+						    <li><a href="#" class="preview_theme" val="a">Black</a></li>
+						    <li><a href="#" class="preview_theme" val="b">Blue</a></li>
+						    <li><a href="#" class="preview_theme" val="c">Dark Gray</a></li>
+						    <li><a href="#" class="preview_theme" val="d">Light Gray</a></li>
+							<li><a href="#" class="preview_theme" val="e">Yellow</a></li>
+						</ul>
+					</li>
+				    <li class="dropdown" id="menu3">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu3">
+					    	1st Link
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu">
+						    <li><a href="#" class="preview_link" link_num="1" val="FB">Facebook Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="1" val="TW">Twitter Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="1" val="NOTE">Send us a Note</a></li>
+						    <li><a href="#" class="preview_link" link_num="1" val="WEB">Visit Website</a></li>						
+						</ul>
+					</li>
+				    <li class="dropdown" id="menu4">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu4">
+					    	2nd Link
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu">
+						    <li><a href="#" class="preview_link" link_num="2" val="FB">Facebook Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="2" val="TW">Twitter Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="2" val="NOTE">Send us a Note</a></li>
+						    <li><a href="#" class="preview_link" link_num="2" val="WEB">Visit Website</a></li>
+						    <li class="divider"></li>
+							<li><a href="#" class="preview_link" link_num="2" val="">Remove</a></li>						
+						</ul>
+					</li>
+				    <li class="dropdown" id="menu5">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu5">
+					    	3rd Link
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu">
+						    <li><a href="#" class="preview_link" link_num="3" val="FB">Facebook Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="3" val="TW">Twitter Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="3" val="NOTE">Send us a Note</a></li>
+						    <li><a href="#" class="preview_link" link_num="3" val="WEB">Visit Website</a></li>
+						    <li class="divider"></li>
+							<li><a href="#" class="preview_link" link_num="3" val="">Remove</a></li>						
+						</ul>
+					</li>										
+				    <li class="dropdown" id="menu6">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu6">
+					    	4th Link
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu">
+						    <li><a href="#" class="preview_link" link_num="4" val="FB">Facebook Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="4" val="TW">Twitter Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="4" val="NOTE">Send us a Note</a></li>
+						    <li><a href="#" class="preview_link" link_num="4" val="WEB">Visit Website</a></li>
+						    <li class="divider"></li>
+							<li><a href="#" class="preview_link" link_num="4" val="">Remove</a></li>
+						</ul>
+					</li>
+				    <li class="dropdown" id="menu7">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu7">
+					    	5th Link
+					    	<b class="caret"></b>
+					    </a>
+					   	 <ul class="dropdown-menu">
+						    <li><a href="#" class="preview_link" link_num="5" val="FB">Facebook Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="5" val="TW">Twitter Page</a></li>
+						    <li><a href="#" class="preview_link" link_num="5" val="NOTE">Send us a Note</a></li>
+						    <li><a href="#" class="preview_link" link_num="5" val="WEB">Visit Website</a></li>
+						    <li class="divider"></li>
+							<li><a href="#" class="preview_link" link_num="5" val="">Remove</a></li>
+						</ul>
+					</li>
+				</ul>	
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+<div class="row">
+	<div class="span6">
+		<iframe id="if" src="{% url 'web.campaign.views.preview' %}" width="400" height="350"></iframe>
+	</div>
+	<div class="span5" style="">
+		<h2>Steps</h2>
+		<ol>
+			<li>Configure your Mini-Site using the links above</li>
+			<li>Fill out the form below</li>
+		</ol>
+		<hr />
+		<form method="POST" id="aform">
+			{% csrf_token %}
+		    <div class="control-group {% if form.title.errors %}error{% endif %}">
+		    	<label class="control-label" for="input01"><strong>Mini-Site Title</strong></label>
+		    	<div>Examples: "Example.com Mini-Site", "My Mini-Site", "Welcome!"
+		    	<div class="controls">
+		    		<input type="text" name="title" id="preview_title" class="span4"  value="{{ form.title.value }}" />
+				    {% if form.title.errors %}
+		    			{{ form.title.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>
+			<br />
+		    <div class="control-group {% if form.url.errors %}error{% endif %}" >
+		    	<label class="control-label" for="input02"><strong>Website URL</strong></label>
+		    	<div>The web address of your existing Website</div>
+		    	<div class="controls">
+		    		<input type="text" name="url" id="preview_url" class="span4"  value="{{ form.url.value }}" />
+				    {% if form.url.errors %}
+		    			{{ form.url.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>
+		    <br />
+		    <div class="control-group {% if form.campaign_name.errors %}error{% endif %}">
+		    	<label class="control-label" for="input01"><strong>Mini-Site Campaign Name</strong></label>
+		    	<div>Example: "first campaign" or just use the Mini-Site Title above.</div>
+		    	<div class="controls">
+		    		<input type="text" name="campaign_name" id="preview_campaign_name" class="span4"  value="{{ form.campaign_name.value }}" />
+				    {% if form.campaign_name.errors %}
+		    			{{ form.campaign_name.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>
+			<div>
+				<button name="next" class="btn btn-info btn-large" />Next</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% if request.session.preview_link %}
+var preview_link = {{request.session.preview_link|safe}};
+{% else %}
+var preview_link = {};
+{% endif %}
+
+var preview_theme = '';
+var preview_header_theme = '';
+
+function reload_if(){
+	$('#if').attr('src','{% url 'web.campaign.views.preview' %}');
+}
+
+function set_preview(submit_form){
+	var pl = JSON.stringify(preview_link)
+	var req = $.ajax({
+		  type: 'POST',
+		  url: "/campaign/set_preview/",
+		  data: {preview_title:$("#preview_title").val(), preview_url:$("#preview_url").val(), preview_campaign_name:$("#preview_campaign_name").val(), preview_link:pl, preview_header_theme:preview_header_theme, preview_theme:preview_theme, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
+		  cache: false,
+		  contentType: "application/json",
+		  success: function(response){
+	
+		  	if(response.success){
+		  		if(submit_form == 1){
+		  			$('#aform').submit();
+		  		}
+		  		else {
+					reload_if();
+		  		}
+		  	}
+		  	else{
+		  	
+		  	}
+		  }
+	});
+	return false;
+	
+}
+
+
+$('#next').click(function(){
+	set_preview(1);
+	return false;
+});
+
+$('#preview_title').blur(function(){
+	set_preview();	
+	return false;	
+});
+
+$('#preview_url').blur(function(){
+	set_preview();	
+	return false;	
+});
+
+$('#preview_campaign_name').blur(function(){
+	set_preview();	
+	return false;	
+});
+
+$('.preview_header_theme').click(function(){
+	preview_header_theme = $(this).attr('val');
+	set_preview();
+	return false;
+});
+
+$('.preview_theme').click(function(){
+	
+	preview_theme = $(this).attr('val');
+	set_preview();
+	return false;
+});
+
+$('.preview_link').click(function(){
+	eval('preview_link' + $(this).attr('link_num') + '="' + $(this).attr('val') + '"');
+
+	preview_link[$(this).attr('link_num')] = $(this).attr('val');
+	set_preview();
+	return false;
+});
+
+{% endblock scripts %}

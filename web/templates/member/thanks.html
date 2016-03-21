@@ -1,0 +1,29 @@
+{% extends "base/layout.html" %}
+{% block head_title %}{% endblock head_title %}
+
+{% block content %}
+<div>
+	<h2>Thanks</h2>	
+	
+	{% if mp %}
+	<p style="margin-height:50px;">
+		We received your payment.
+		
+	</p>
+	<p>
+		Your Mini-Site Subscription will expire on {{mp.end_at|date:"m-d-Y"}} 
+		
+	</p>
+	<div>
+		<a href="{% url 'web.registration.views.premium' %}" class="btn btn-info btn-large">Create  Mini-Site</a>
+	</div>
+	
+	{% else %}
+	<p style="margin-height:50px;">
+		There was a problem processing your payment.
+	{% endif %}
+	
+</div>
+	
+
+{% endblock content %}

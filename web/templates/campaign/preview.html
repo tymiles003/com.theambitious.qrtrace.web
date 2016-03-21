@@ -1,0 +1,27 @@
+<html>
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+
+</head>
+<body>
+<div data-role="page" id="page" data-theme="{{request.session.preview_theme}}">
+
+	<div data-role="header" data-theme="{{request.session.preview_header_theme}}">
+
+		<h2>{{request.session.preview_title}}</h2>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true">
+			{% for k,v in display %}
+				<li><a href="#">{{v}}</a></li>
+			{% endfor %}
+		</ul>		
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+</body>
+</html>

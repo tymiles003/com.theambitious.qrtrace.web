@@ -1,0 +1,53 @@
+{% extends "base/layout.html" %}
+{% block content %}
+<div class="row">
+	<div class="span5" >
+		<h2>Welcome</h2>
+		<p>With our <strong>Free</strong> service you can:</p>
+		<ul>
+			<li>Create and customize QR codes</li>
+			<li>Track your scan statistics</li>
+			<li>Export your data to Excel</li>
+		</ul>
+		<div style="background-color: #f9f9f9; margin-top:20px; padding:8px; border:1px solid #eee; -moz-border-radius: 5px;border-radius: 5px;">
+			<p>Entering a URL or text</p>
+			<form class="form-inline" method="post">
+				{% csrf_token %}
+				<textarea name="data" placeholder="" class="span3"></textarea>
+				<button class="btn btn-primary btn-large btn-info" style="margin:10px;">Get Started</button>
+			</form>
+		</div>
+		<div style="margin-top:150px;">
+			<span class='st_twitter_vcount' displayText='Tweet'></span>
+			<span class='st_fblike_vcount' displayText='Facebook Like'></span>
+			<span class='st_plusone_vcount' displayText='Google +1'></span>
+			<span class='st_sharethis_vcount' displayText='ShareThis'></span>
+			<span class='st_email_vcount' displayText='Email'></span>
+		</div>
+	</div>
+	<div class="span2" style="border-right:1px solid #f9f9f9; min-height:380px;">
+	</div>
+	<div class="span4">
+		<h2>Mini-Site</h2>
+		<div>
+			<p>
+				In addition to our QR code creation and tracking service, we also offer a Mini-Site service.
+				This premium service allows you to create custom, mobile-friendly landing pages for QR codes.
+			</p>
+			<img src="/images/premium_example.png" />
+
+		</div>
+
+		<div style="margin-top:20px; border:1px solid #eee; background-color:#f9f9f9;text-align:center;">
+			<p style="text-align:center; color: #444; font-size:24px; margin-top:10px;">
+				Free 30 day trial
+			</p>
+			<p>No credit card information required for trial
+			</p>
+			<form action="{% url 'web.registration.views.premium' %}">
+				<button class="btn btn-primary btn-large btn-info">Create a Mini-Site</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

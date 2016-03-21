@@ -1,0 +1,92 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+
+<div class="row">
+	<div class="span6">
+		<h2>Get Started</h2>
+		<div style="margin-top:20px;">
+			<form class="form-horizontal" method="POST">
+			{% csrf_token %}
+			    <fieldset>
+				    <div class="control-group {% if form.name.errors %}error{% endif %}">
+				    	<label class="control-label" for="input01">QR Campaign Name</label>
+				    	<div class="controls">
+				    		<input type="text" name="name" class="span4"  value="{{ form.name.value }}" />
+				    		{% if not form.name.errors %}
+				    		<p class="help-block">So you can easily identify this campaign</p>
+				    		{% else %}
+				    			{{ form.name.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				    <div class="control-group {% if form.data.errors %}error{% endif %}">
+				    	<label class="control-label" for="input02">Text or URL</label>
+				    	<div class="controls">
+				    		<textarea name="data" id="data" class="span4" rows="7">{% if form.data.value %}{{ form.data.value }}{% else %}{{request.session.data}}{% endif %}</textarea>
+				    		{% if not form.data.errors %}
+				    		<p class="help-block">Destination URL or text of QR code scan</p>
+				    		{% else %}
+				    			{{ form.data.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				    <div class="control-group {% if form.email.errors %}error{% endif %}">
+				    	<label class="control-label" for="input03">Email</label>
+				    	<div class="controls">
+				    		<input type="text" name="email" class="span4"   value="{{ form.email.value }}" />
+				    		{% if not form.email.errors %}
+				    		<p class="help-block">Enter your email to track your campaign. </p>
+				    		{% else %}
+				    		{{ form.email.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				    <div class="control-group {% if form.password.errors %}error{% endif %}">
+				    	<label class="control-label" for="input04">Password</label>
+				    	<div class="controls">
+				    		<input type="password" name="password" class="span4"  value="{{ form.password.value }}" />
+				    		{% if not form.password.errors %}
+				    		<p class="help-block">6 or more characters, numbers or both</p>
+				    		{% else %}
+				    		{{ form.password.errors|field_errors:"newline" }}
+				    		{% endif %}
+				    	</div>
+					</div>
+				    <div class="control-group">
+				    	<label class="control-label" for="input05"></label>
+						<div class="controls">
+							<button class="btn btn-large btn-primary">Continue</button>
+						</div>
+					</div>
+			    </fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="span1" style="border-right:1px solid #f9f9f9; min-height:600px;">
+	</div>
+	<div class="span4">
+		<h2>Because</h2>
+		<div style="margin-top:20px;">
+			<ul>
+				<li>It's Free</li>
+				
+				<li>View your data through our interface</li>
+				<li>Data exports for programs like Excel</li>
+
+				<li>Your data belongs to you, not us</li>
+				<li>We never share emails with 3rd parties</li>
+				
+			</ul>
+		</div>	
+	</div>	
+</div>
+{% endblock content %}
+
+{% block scripts %}
+$('#destination').blur(function(){
+
+	$('#qr').attr('src','/qr?data=' + $(this).val());
+});
+{% endblock scripts %}

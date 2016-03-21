@@ -1,0 +1,61 @@
+{% extends "base/layout.html" %}
+{% block head_title %}{% endblock head_title %}
+{% block menu %}
+	{% include 'include/menu.html' with current='campaign' %}
+{% endblock menu %}
+
+{% block content %}
+<div>
+	<h2>My Campaigns</h2>
+	<div style="margin-top:20px;"><a href="{% url 'web.member.views.campaign_new_edit' %}" class="btn">New Standard Campaign</a>
+	<a href="{% url 'web.registration.views.premium' %}" class="btn" >New Mini-Site Campaign</a></div>
+	<div class="row" style="margin-top:20px;">
+		<div class="span11">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Scans Today</th>
+						<th>Campaign Type</th>
+						<th>Last Updated</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+			{% for c in cs %}
+				<tr>
+					<td>
+						{{c.name}} 
+					</td>
+					<td>
+						{{c.d_day_count}} 
+					</td>
+					<td>
+						{{c.d_campaign_type}} 
+					</td>
+					<td>	
+						{{c.updated_at|date:"m-d-Y"}}
+					</td>
+					<td class="span2" style="text-align:right;">
+						<div class="row">
+						{% if c.campaign_type == 'P' %}							
+							<a href="{% url 'web.registration.views.premium' c.id %}" class="btn-small btn" style="margin-right:23px;">Edit</a>
+						{% else %}
+							<a href="{% url 'web.member.views.campaign_new_edit' c.id %}" class="btn-small btn" style="margin-right:23px;">Edit</a>
+						{% endif %}
+						<a href="{% url 'web.member.views.campaign_details' c.id %}" class="btn btn-info">view</a>
+					
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="5">
+						No campaigns yet!
+					</td>
+				</tr>
+			{% endfor %}
+			</table>				
+		</div>
+
+	</div>
+</div>
+{% endblock content %}

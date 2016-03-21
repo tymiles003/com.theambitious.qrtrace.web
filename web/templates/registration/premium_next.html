@@ -1,0 +1,123 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+<form method="POST">
+<div class="row">
+	<div class="span11">
+		<h2>Additional Information Needed</h2>
+		<p>We need some additional information for the features you picked</p>
+		
+		<form method="POST">
+			{% csrf_token %}
+
+			{% if tw %}
+			<hr />				
+			<div class="control-group {% if form.TW.errors %}error{% endif %}" id="TW_display" >
+		    	<label class="control-label" for="input01"><strong>Twitter Username</strong></label>
+		    	<div>Just your Twitter username.
+		    	<br /><strong>Correct:</strong> DeanHantzis 
+		    	<br /><strong  style="color:red;">Incorrect:</strong> https://twitter.com/#!/DeanHantzis</div>
+		    	<br />
+		    	<div class="controls">
+		    		<div>
+		    			<div style=" width:85px; display:inline;">
+		    				<img src="/images/icon_twitter.png" width="80" height="80" />
+		    			</div>
+		    			<div style="display:inline;">
+		    				<input type="text" name="TW" id="TW" class="span3"  value="{{ form.TW.value }}" /> 
+		    			</div>
+		    		</div>
+
+		    		<div id="TW_check_div" style="display:none;"><a href="#" id="TW_check" target="_blank">Check Twitter (new tab)</a></div>
+				    {% if form.TW.errors %}
+		    			{{ form.TW.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>
+			<hr />
+			{% endif %}
+			
+			{% if fb %}
+			
+			<div class="control-group {% if form.FB.errors %}error{% endif %}" id="FB_display" >
+		    	<label class="control-label" for="input02"><strong>Facebook Page</strong></label>
+		    	<div>Just your Facebook page. 
+		    	<br />
+		    	<strong >Correct:</strong> Celtics 
+		    	<br /><strong  style="color:red;">Incorrect:</strong> http://facebook.com/Celtics</div>
+		    	<br />
+		    	<div class="controls">
+		    		<div>
+		    			<div style=" width:85px; display:inline;">
+		    				<img src="/images/icon_facebook.png" width="80" height="80" />
+		    			</div>
+		    			<div style="display:inline;">
+				    		<table>
+				    			<tr>
+				    				<td>		
+						    			http://facebook.com/
+				    				</td>
+				    				<td>
+					    			<input type="text" name="FB" id="FB"   value="{{ form.FB.value }}" /> 
+				    				</td>
+				    			</tr>
+							</table>
+						</div>
+					</div>
+		    		<div id="FB_check_div" style="display:none;"><a href="#" id="FB_check" target="_blank">Check Facebook (new tab)</a></div>
+				    {% if form.FB.errors %}
+		    			{{ form.FB.errors|field_errors:"newline" }}
+		    		{% endif %}
+		    	</div>
+			</div>
+			<hr />	
+			{% endif %}
+			
+			<button class="btn btn-large btn-info" id="next" >Next Step</button>
+		</form>
+	</div>
+</div>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+
+
+if ($('#TW').val() != ''){
+	$('#TW_check_div').show();
+}
+
+$('#TW').blur(function(){
+	if ($(this).val() != ''){
+		$('#TW_check_div').show();
+	}
+	else {
+		$('#TW_check_div').hide();
+	}	
+});
+
+$('#TW_check').click(function(){
+	window.open('https://twitter.com/intent/user?screen_name=' + $('#TW').val(), '_BLANK');
+	return false;
+});
+
+if ($('#FB').val() != ''){
+	$('#FB_check_div').show();
+}
+
+$('#FB').blur(function(){
+	if ($(this).val() != ''){
+		$('#FB_check_div').show();
+	}
+	else {
+		$('#FB_check_div').hide();
+	}
+	
+});
+$('#FB_check').click(function(){
+	window.open('http://facebook.com/' + $('#FB').val(), '_BLANK');
+	return false;
+});
+
+{% endblock scripts %}

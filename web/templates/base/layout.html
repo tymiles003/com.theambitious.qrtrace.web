@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="keywords" content="{% block head_keywords %}qr code, qr, qr track, qr scan, qr create{% endblock head_keywords %}">
+  <meta name="description" content="{% block head_description %}QR code creation, tracking and campaigns{% endblock head_description %}">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META NAME="robots" CONTENT="{% block meta_robots %}{% endblock meta_robots %}">
+  <title>{% block head_title %}QRtrace: QR code creation and tracking{% endblock head_title %}</title>
+  <style type="text/css">
+  p { font-size:14px; line-height:25px; }
+  .help-block { font-size:12px;  }
+  #content li { font-size:14px; padding:6px;}
+  
+  </style>
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />	  
+  {% block css-includes %}{% endblock css-includes %}
+
+</head>
+<body >
+{% load general_extras %}
+
+<div class="container" >
+	
+	{% block header %}{% include 'include/header.html' %}{% endblock header %}
+    <div class="wrapper">
+   		
+		<div style="margin-top:10px;">
+			<div class="navbar">
+		    	<div class="navbar-inner" >
+			    	<div class="container">
+						{% if not request.user.is_authenticated %}
+						<form class="navbar-form pull-right form-inline" style="margin-top: -5px; margin-right:-17px;" method="POST" action="{% url 'web.general.views.home' %}">
+							{% csrf_token %}
+	    					<input type="text" name="email" class="span3" placeholder="email">
+	    					<input type="password" name="password" class="input-small" placeholder="password">
+	    					<button name="submit_login" class="btn btn-mini" style="margin-top:10px;">Login</button>
+	    				</form>
+	    				{% else %}
+			            <div class="pull-right" style="margin-right:-17px;">
+			                <span style="color:#fff">{{request.user.email}}</span> <button name="logoff" id="user_logoff" class="btn-mini btn ">Log off</button>
+			            </div>
+			            {% endif %}	    				
+			    		<a class="brand" href="/">
+					    	<img src="/images/icon_qrcode.png" width="55" height="55" title="Don't try to scan this. It doesn't scan!"  style="position:absolute; margin-left:-20px; margin-top:-8px;"/>
+					    	<div style="color:#fff; font-family:arial; font-size:24px; margin-left:45px; margin-top:-4px;">
+					    		 QR<span style="font-size:14px;">
+					    		<strong>TRACE</strong></span>
+					    	</div>	
+					    </a>
+					    {% if request.user.is_authenticated %}
+					    {% block menu %}{% include 'include/menu.html' %}{% endblock menu %}
+						{% endif %}
+			    	</div>
+		    	</div>
+		    </div>	
+		    <div>
+		    	{% block message %}{% include 'include/messages.html' %}{% endblock message %}
+		    </div>
+			<div style="border:1px solid #ccc; -moz-border-radius: 5px;border-radius: 5px; padding:10px;" id="content">
+				{% block content %}{% endblock content %}
+				<br /><br />
+			</div>
+			<div  style="text-align:right; margin-top:10px; border:1px solid #eee; color:#888; -moz-border-radius: 5px;border-radius: 5px; padding:10px;" id="footer">
+		 		{% include 'include/footer.html' %}
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<div class="modal hide" id="campaign_type_modal">
+    <div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal">×</button>
+    	<h3>Campaign Types Explained</h3>
+    </div>
+    <div class="modal-body">
+    	<div class="row">
+    		<div class="span4" >
+    			<h4>Standard</h4>
+    			<p>
+    				The standard campaign supports creating a QR code that points to a URL or displays text. 
+    				Scan statistics and exports of data are supported.     
+    			</p>
+    		</div>
+    		<div class="span1" style="border-right: 1px solid #f9f9f9; min-height:300px;">
+ 
+    		</div>
+    		<div class="span4">
+    			<h4>Mini-Sites</h4>
+    			<p>
+    				Mini-Sites allow you to create professional mini-sites for mobile phones and tablets.
+    				Mini-Sites are highly customizable. Here is an example of a mini-site landing page.
+    				<img src="/images/premium_example.png" />
+    			</p>
+    		</div>
+    	</div>
+    </div>
+    <div class="modal-footer">
+    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	{% if mp.id %}<a href="{% url 'web.registration.views.premium' %}" class="btn btn-primary">Create a Mini-Site</a>{% endif %}
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>    
+<script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "ur-163f5a25-ef7e-39ab-3f2f-73d037102cda"}); </script>
+
+{% block script-files %}{% endblock script-files %}
+  <script type="text/javascript">
+	$('#user_logoff').click(function(){
+		window.location='{% url 'web.member.views.log_out' %}';
+	});
+	$('#privacy').popover();
+	$('#tos').popover();
+	
+	$('.question_ctype').click(function(){
+		$('#campaign_type_modal').modal({
+		        backdrop: true,
+		        keyboard: true
+		    }).css({
+		        width: '800px',
+		        'margin-left': function () {
+		            return -($(this).width() / 2);
+		        }
+		});
+	});	
+	{% block scripts %}{% endblock scripts %}
+  </script>
+  
+	<script type="text/javascript">
+	
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', '']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>  
+  
+
+</body>
+</html>

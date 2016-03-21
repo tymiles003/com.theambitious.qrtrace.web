@@ -1,0 +1,129 @@
+{% if c.campaign_type == 'P' %}
+<html>
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+</head>
+<body>
+<div data-role="page" id="page" data-theme="{{c.premium_theme}}">
+
+	<div data-role="header" data-theme="{{c.premium_header_theme}}">
+
+		<h1>{{c.premium_title}}</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true">
+			{% for k in ps %}
+				{% if k.name == 'TW' %}
+					<li><a href="#" id="TW" v="{{k.val}}">{{k.d_name}}</a></li>
+				{% endif %}
+				
+				{% if k.name == 'FB' %}
+					<li><a href="#" id="FB" v="{{k.val}}">{{k.d_name}}</a></li>
+				{% endif %}
+				
+				{% if k.name != 'FB' and k.name != 'TW' %}
+					<li><a href="#{{k.name}}" n="{{k.name}}" v="{{k.val}}" class="link">{{k.d_name}}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>		
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="NOTE" data-theme="{{c.premium_theme}}">
+
+	<div data-role="header" data-theme="{{c.premium_header_theme}}">
+		<a href="#page" data-icon="back">Back</a>
+		<h1>Send us a Note</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<form  method="POST">
+			
+			<div>
+				<label for="note">Your Note to us</label>
+
+				<textarea name="note" id="note"></textarea>
+			</div>
+			<br />
+			<div>
+				<label for="email">Your Email</label>
+			
+				<input type="text" name="email" id="email" />
+				<input type="hidden" name="campaign" id="campaign" value="{{c.id}}" />
+			</div>
+			<div>
+				<br />
+				{% csrf_token %}
+				<input type="submit" id="note_submit" name="submit" value="Send" />
+			</div>
+		</form>
+
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+
+<script type="text/javascript">
+
+function set_click(name){
+	var req = $.ajax({
+		  type: 'POST',
+		  url: "/t/save_click/",
+		  data: { 'campaign': $('#campaign').val(), 'click_type':name, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
+		  cache: false,
+		  contentType: "application/json",
+		  success: function(response){
+			
+		  }
+	});	
+}
+
+$('#TW').click(function(){
+	set_click('TW');	
+	window.open('https://twitter.com/intent/user?screen_name=' + $(this).attr('v'));
+	return false;
+});
+$('#FB').click(function(){
+	set_click('FB');
+	window.open('http://facebook.com/' +  $(this).attr('v'));
+	return false;
+});
+
+$('.link').click(function(){
+	set_click($(this).attr('n'));
+	if ($(this).attr('v') != ''){
+		window.open($(this).attr('v'));
+	}
+});
+
+$('#note_submit').click(function(){
+	set_click('NOTE');	
+	var req = $.ajax({
+		  type: 'POST',
+		  url: "/t/save_note/",
+		  data: { 'email': $('#email').val(), 'note': $('#note').val(), 'campaign': $('#campaign').val(), 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
+		  cache: false,
+		  contentType: "application/json",
+		  success: function(response){
+		  	if(response.data.success){
+		  		alert('Your note has been sent! We will take you back to the home page now.');
+		  		window.location='#page';
+		  	}
+		  	else{
+				alert('Enter your email address and fill out all fields');
+		  	}
+		  }
+	});
+	return false;
+});
+</script>
+</body>
+</html>
+{% else %}
+	{{c.data}}
+{% endif %}

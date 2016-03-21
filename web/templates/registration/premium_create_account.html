@@ -1,0 +1,52 @@
+{% extends "base/layout.html" %}
+{% load general_extras %}
+{% block head_title %}{% endblock head_title %}
+{% block content %}
+<form method="POST">
+<div class="row">
+	<div class="span11">
+		<h2>Create Premium Account</h2>
+		<p>You're almost done! Create a premium account and we'll activate the Mini-Site you just created with a <strong>Free</strong> 30 Day Trial.</p>
+		<form class="form-horizontal" method="POST">
+		{% csrf_token %}
+		    <fieldset>
+			    <div class="control-group {% if form.email.errors %}error{% endif %}">
+			    	<label class="control-label" for="input03">Email</label>
+			    	<div class="controls">
+			    		<input type="text" name="email" class="span4"   value="{{ form.email.value }}" />
+			    		{% if not form.email.errors %}
+			    		<p class="help-block">Enter your email to track your campaign. </p>
+			    		{% else %}
+			    			{{ form.email.errors|field_errors:"newline" }}
+			    		{% endif %}
+			    	</div>
+				</div>
+			    <div class="control-group {% if form.password.errors %}error{% endif %}">
+			    	<label class="control-label" for="input04">Password</label>
+			    	<div class="controls">
+			    		<input type="password" name="password" class="span4"  value="{{ form.password.value }}" />
+			    		{% if not form.password.errors %}
+			    		<p class="help-block">6 or more characters, numbers or both</p>
+			    		{% else %}
+			    		{{ form.password.errors|field_errors:"newline" }}
+			    		{% endif %}
+			    	</div>
+				</div>
+			    <div class="control-group">
+			    	<label class="control-label" for="input05"></label>
+					<div class="controls">
+						<button class="btn btn-large btn-primary">Continue</button>
+					</div>
+				</div>
+				<input type="hidden" name="data" value="{{request.session.preview_url}}" />
+				<input type="hidden" name="name" value="{{request.session.preview_campaign_name}}" />
+		    </fieldset>
+		</form>
+	</div>
+</div>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

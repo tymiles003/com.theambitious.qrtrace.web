@@ -1,0 +1,240 @@
+{% extends "base/layout.html" %}
+{% block head_title %}{% endblock head_title %}
+{% block menu %}
+	{% include 'include/menu.html' with current='campaign' %}
+{% endblock menu %}
+
+{% block content %}
+<div>
+	<div class="row">
+		<div class="span7">
+			<h2>Campaign: {{c.name}}</h2>	
+		</div>
+		<div class="span4" style="text-align:right;">
+			<a href="{% url 'web.member.views.campaign' %}" class="btn-large btn">Back to Campaigns</a>
+		</div>
+	</div>	
+	
+	<div class="row" style="margin-left:30px; margin-top:30px;">
+		<div class="span5" style="height:330px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+			<h2>Campaign Info</h2>
+		    <table style="text-align:left" class="table">
+		    	<tbody>
+		    		{% if c.campaign_type != 'P' %}
+		    		<tr>
+					    <td >Data</td>
+		    			<td>{{c.data}}</td>
+		    		</tr>
+		    		{% endif %}
+		    		<tr>
+					    <td class="span2">Campaign Type</td>
+		    			<td>{{c.d_campaign_type}} <a class="btn btn-mini question_ctype" >?</a></td>
+		    		</tr>
+		    		{% if c.campaign_type == 'P' or not mp %}
+		    		<tr>
+					    <td>Title</td>
+		    			<td>
+		    				{% if c.campaign_type == 'P' %}{{c.premium_title}}{% else %} <i>premium only</i> <a class="btn btn-mini question_ctype"  >?</a>{% endif %}
+		    			</td>
+		    		</tr>
+		    		<tr>
+					    <td>Title Theme</td>
+		    			<td>
+		    				{% if c.campaign_type == 'P' %}{{c.d_premium_header_theme}}{% else %}<i>premium only</i> <a class="btn btn-mini question_ctype"  >?</a>{% endif %}
+		    			</td>
+		    		</tr>		    				    		
+		    		<tr>
+					    <td>Content Area Theme</td>
+		    			<td>
+		    				{% if c.campaign_type == 'P' %}{{c.d_premium_theme}} {% else %}<i>premium only</i> <a class="btn btn-mini question_ctype"  >?</a>{% endif %}
+		    			</td>
+		    		</tr>		    		
+		    		{% endif %}
+		    		<tr>
+					    <td>Status</td>
+		    			<td>{{c.d_status}}</td>
+		    		</tr>
+		    		<tr>
+					    <td>Created on</td>
+		    			<td>{{c.created_at|date:"m-d-Y"}}</td>
+		    		</tr>
+		    		<tr>
+					    <td>Export Data</td>
+		    			<td>
+		    				<a href="{% url 'web.member.views.campaign_export' c.id %}">csv file format</a>
+		    			</td>
+		    		</tr>
+			    </tbody>
+		    </table>
+		</div>
+		<div class="span5" style="height:330px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+			<h2>Scans over past week</h2>
+			<div id="chart" style="width:350px;height:250px;"></div>
+		</div>
+	</div>
+	<br />
+	<div class="row" style="margin-left:30px;">
+		<div class="span5" style="min-height:330px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+			<h2>Scan Stats</h2>
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>
+							Day
+						</th>
+						<th>
+							# Scans
+						</th>
+					</tr>
+				</thead>
+			{% for s in ss %}
+				<tr>
+					<td>
+						{{s.day}}
+					</td>
+					<td>
+						{{s.c}}
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="2">
+						no scans yet!
+					</td>
+				</tr>
+			{% endfor %}
+			</table>
+		</div>
+		<div class="span5 offset5" style="margin-left:-1px;">
+			{% if c.campaign_type == 'P' %}
+			<div class="span5" style="margin-bottom:20px;min-height:150px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">			
+				
+				<h2>Click Stats</h2>
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>
+								Link
+							</th>
+							<th>
+								# Clicks
+							</th>
+							<th>
+								Percent
+							</th>
+						</tr>
+					</thead>
+				{% for cc in ccs %}
+					<tr>
+						<td>
+							{{cc.d_click_type}}
+						</td>
+						<td>
+							{{cc.c}}
+						</td>
+						<td>
+							{{cc.d_click_percent}}%
+						</td>
+					</tr>
+				{% empty %}
+					<tr>
+						<td colspan="3">
+							no clicks yet!
+						</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+			{% endif %}
+			{% if c.campaign_type == 'P' and notes %}
+			<div class="span5" style="margin-bottom:20px;min-height:150px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">			
+				
+				<h2>Note Stats</h2>
+				<table class="table table-condensed table-striped">
+				{% for n in notes %}
+					<tr>
+						<td>
+							{{n.email}}	@ {{n.created_at|date:"m-d-Y h:i:s"}}<br />
+							<i>&quot;{{n.note}}&quot;</i>
+							
+						</td>
+					</tr>
+				{% empty %}
+					<tr>
+						<td >
+							no clicks yet!
+						</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+			{% endif %}
+			
+			<div  class="span5" style="height:330px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+				<h2>Create QR Code</h2>
+				<br />
+				<p>Pick a size</p>
+				<form>
+		    		<select name="size" id="size">
+		    			<option value="3">75px by 75px</option>
+		    			<option value="7">175px by 175px</option>
+		    			<option value="11">275px by 275px</option>
+		    			<option value="15">375px by 375px</option>
+		    			<option value="19">475px by 475px</option>
+		    			<option value="23">575px by 575px</option>
+		    			<option value="27">675px by 675px</option>
+		    			<option value="31">775px by 775px</option>
+		    			<option value="40">Stupid Big</option>
+		    		</select>
+		    	</form>
+				<img src="{% url 'web.general.views.qr' %}?campaign_id={{c.id}}&size=6" />
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block script-files %}
+<script type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot/excanvas.min.js"></script><![endif]-->
+
+{% endblock script-files %}
+{% block scripts %}
+
+
+	
+$('#size').change(function(){
+	window.open('{% url 'web.general.views.qr' %}?campaign_id={{c.id}}&size=' + $('#size').val(),'_blank');
+});
+
+$(function () {
+    var d1 = [{{chart_data_y|safe}}];
+    var options = {
+            series: {
+              lines: { show: true },
+              points: { show: true },
+              color: '#92d5ea'
+            },
+            grid: {
+                color: '#494949',
+                backgroundColor: '#fff',
+                borderWidth: 1,
+                borderColor: '#fff',
+                minBorderMargin: null,
+                clickable: true,
+                hoverable: true,
+                autoHighlight: true,
+              },   
+              yaxis: {
+                tickDecimals: 0,
+              },
+              xaxis: {
+                ticks: [{{chart_data_x|safe}}]
+              }           
+          };  
+    $.plot($("#chart"), [d1], options);
+});
+
+{% endblock scripts %}

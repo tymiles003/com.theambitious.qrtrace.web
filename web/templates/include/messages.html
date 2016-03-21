@@ -1,0 +1,8 @@
+{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-leanwagon fade in {% if message.tags %} {{ message.tags }}{% endif %}">
+	    <a data-dismiss="alert" class="close" href="#">×</a>
+	    <p>{{ message }}</p>
+	</div>
+	{% endfor %}
+{% endif %}

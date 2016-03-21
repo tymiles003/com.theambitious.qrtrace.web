@@ -1,0 +1,33 @@
+{% extends "base/layout.html" %}
+{% block head_title %}{% endblock head_title %}
+{% block menu %}
+	{% include 'include/menu.html' with current='dash' %}
+{% endblock menu %}
+{% block content %}
+<div>
+	<h2>Dashboard</h2>	
+	<div class="row" style="margin-left:30px; margin-top:30px;">
+		<div class="span5" style="height:300px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+			<h2>News</h2>
+			<p style="margin-top:20px; text-align:left;">
+			</p>
+		</div>
+		<div class="span5" style="height:300px; border: 2px solid #f9f9f9; padding:5px; -moz-border-radius: 5px;border-radius: 5px; text-align:center;">
+			<h2>Share</h2>
+			<p style="margin-top:20px; text-align:left;">
+				If you like QRtrace.com, please help spread the word. <br />We really appreciate it.
+			</p>
+			<div style="margin-top:100px;">
+				<span class='st_twitter_vcount' displayText='Tweet'></span>
+				<span class='st_fblike_vcount' displayText='Facebook Like'></span>
+				<span class='st_plusone_vcount' displayText='Google +1'></span>
+				<span class='st_sharethis_vcount' displayText='ShareThis'></span>
+				<span class='st_email_vcount' displayText='Email'></span>		
+			</div>
+
+		</div>
+	</div>
+</div>
+	
+
+{% endblock content %}
